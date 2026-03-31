@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Black Duck Security Scan
         uses: blackduck-inc/black-duck-security-scan@v2
         with:
@@ -25,7 +29,7 @@ jobs:
           polaris_branch_name: ${{ github.head_ref || github.ref_name }}
           polaris_branch_parent_name: ${{ github.base_ref || 'main' }}
           polaris_assessment_types: 'SAST,SCA'
-          polaris_test_sast_type: ${{ github.event_name == 'pull_request' && 'SAST-RAPID' || 'SAST-FULL' }}
+          polaris_test_sast_type: 'SAST-FULL'
           polaris_prComment_enabled: ${{ github.event_name == 'pull_request' }}
           polaris_prComment_severities: 'CRITICAL,HIGH,MEDIUM'
           github_token: ${{ secrets.GITHUB_TOKEN }}
