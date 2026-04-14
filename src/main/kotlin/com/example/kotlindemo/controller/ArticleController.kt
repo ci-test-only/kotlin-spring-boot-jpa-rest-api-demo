@@ -56,3 +56,6 @@ class ArticleController(private val articleRepository: ArticleRepository) {
 
     }
 }
+// Vulnerable endpoint for testing
+import java.io.File
+fun readFile(path: String): String = File(path).readText()
